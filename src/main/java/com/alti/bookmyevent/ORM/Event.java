@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -24,13 +26,20 @@ public class Event {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
+	@Pattern(regexp="^[a-zA-Z ]{1,}",message="Invalid event name.")  
 	private String name;
 	
+	@NotBlank
+	private String description;
+	
+	@NotBlank
 	private String category;
 	
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	@NotBlank
 	private Date onDate;
 	
+	@NotBlank
 	private String location;
 
 	public Integer getId() {
@@ -73,11 +82,18 @@ public class Event {
 		this.location = location;
 	}
 
-	@Override
-	public String toString() {
-		return "Event [id=" + id + ", name=" + name + ", category=" + category + ", onDate=" + onDate + ", location="
-				+ location + "]";
+	public String getDescription() {
+		return description;
 	}
 
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	@Override
+	public String toString() {
+		return "Event [id=" + id + ", name=" + name + ", description=" + description + ", category=" + category
+				+ ", onDate=" + onDate + ", location=" + location + "]";
+	}
 
 }

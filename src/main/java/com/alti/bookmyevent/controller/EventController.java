@@ -3,12 +3,17 @@ package com.alti.bookmyevent.controller;
 import java.util.List;
 
 import javax.net.ssl.SSLEngineResult.Status;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,12 +27,13 @@ import com.alti.bookmyevent.service.EventService;
 
 @RestController()
 @RequestMapping("/event")
+@Validated
 public class EventController {
 	@Autowired
 	EventService eventService;
 
 	@PostMapping()
-	public ResponseEntity<Event> createEvent(@RequestBody Event model) {
+	public ResponseEntity<Event> createEvent(@Valid @RequestBody Event model) {
 		Event response = eventService.saveEvent(model);
 		return new ResponseEntity<Event>(response, HttpStatus.CREATED);
 	}
@@ -38,23 +44,23 @@ public class EventController {
 		return new ResponseEntity<List<Event>>(response, HttpStatus.OK);
 	}
 
-	@GetMapping("/id")
-	public ResponseEntity<Event> getEventById(@RequestParam Integer id) throws Exception {
+	@GetMapping("/id/{id}")
+	public ResponseEntity<Event> getEventById(@PathVariable @Min(1) Integer id) throws Exception {
 		return new ResponseEntity<Event>(eventService.getEventById(id), HttpStatus.OK);
 	}
 
-	@GetMapping("/category")
-	public ResponseEntity<List<Event>> getEventsByCategory(@RequestParam String category) {
+	@GetMapping("/category/{category}")
+	public ResponseEntity<List<Event>> getEventsByCategory(@PathVariable @NotBlank String category) {
 		return new ResponseEntity<List<Event>>(eventService.getEventsByCategory(category), HttpStatus.OK);
 	}
 
 	@PutMapping()
-	public ResponseEntity<Event> updateEent(@RequestBody Event event) {
+	public ResponseEntity<Event> updateEent(@Valid @RequestBody Event event) {
 		return new ResponseEntity<Event>(eventService.updateEvent(event), HttpStatus.OK);
 	}
 
-	@DeleteMapping()
-	public void deleteEvent(@RequestParam Integer id) {
+	@DeleteMapping("{id}")
+	public void deleteEvent(@PathVariable @Min(1) Integer id) {
 		eventService.deleteEventById(id);
 	}
 }
