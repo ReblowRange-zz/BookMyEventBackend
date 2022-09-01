@@ -10,7 +10,7 @@
 	<groupId>com.alti</groupId>
 	<artifactId>book-my-event</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>BookMyEvent</name>
 	<description>Book My Event API</description>
 	<properties>

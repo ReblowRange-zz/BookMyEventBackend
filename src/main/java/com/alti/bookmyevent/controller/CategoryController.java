@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alti.bookmyevent.ORM.Category;
 import com.alti.bookmyevent.service.CategoryService;
 
+@CrossOrigin("*")
 @RestController()
 @RequestMapping("/category")
 @Validated
@@ -49,7 +51,7 @@ public class CategoryController {
 		return new ResponseEntity<Category>(categoryService.updateCategory(category), HttpStatus.OK);
 	}
 	
-	@DeleteMapping("{id}")
+	@DeleteMapping("/id/{id}")
 	public void deleteCategory(@PathVariable @Min(1) Integer id) {
 		categoryService.deleteCategory(id);
 	}
