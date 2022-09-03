@@ -12,4 +12,7 @@ public interface EventJPARepository extends JpaRepository<Event, Integer> {
 	
 	@Query("select e from Event e WHERE e.category = ?1")
 	public List<Event> getEventsByCategory(String category);
+	
+	@Query("select e from Event e WHERE e.category = ?1 and e.location = ?2")
+	public List<Event> getEventsByCategory(String category, String location);
 }

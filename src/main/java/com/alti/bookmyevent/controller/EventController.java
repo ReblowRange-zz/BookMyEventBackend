@@ -35,7 +35,7 @@ public class EventController {
 	EventService eventService;
 
 	@PostMapping()
-	public ResponseEntity<Event> createEvent(@Valid @RequestBody Event model) {
+	public ResponseEntity<Event> createEvent(@RequestBody Event model) {
 		Event response = eventService.saveEvent(model);
 		return new ResponseEntity<Event>(response, HttpStatus.CREATED);
 	}
@@ -56,12 +56,18 @@ public class EventController {
 		return new ResponseEntity<List<Event>>(eventService.getEventsByCategory(category), HttpStatus.OK);
 	}
 
+	@GetMapping("/cate_n_loc")
+	public ResponseEntity<List<Event>> getEventsByCategoryNLocation(@RequestParam @NotBlank String category, 
+			@RequestParam @NotBlank String location) {
+		return new ResponseEntity<List<Event>>(eventService.getEventsByCategoryNLocation(category, location), HttpStatus.OK);
+	}
+	
 	@PutMapping()
 	public ResponseEntity<Event> updateEent(@Valid @RequestBody Event event) {
 		return new ResponseEntity<Event>(eventService.updateEvent(event), HttpStatus.OK);
 	}
 
-	@DeleteMapping("{id}")
+	@DeleteMapping("/id/{id}")
 	public void deleteEvent(@PathVariable @Min(1) Integer id) {
 		eventService.deleteEventById(id);
 	}

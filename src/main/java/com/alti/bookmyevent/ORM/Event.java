@@ -35,8 +35,7 @@ public class Event {
 	@NotBlank
 	private String category;
 	
-	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-	@NotBlank
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private Date onDate;
 	
 	@NotBlank

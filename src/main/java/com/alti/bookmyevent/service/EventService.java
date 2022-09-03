@@ -9,11 +9,13 @@ public interface EventService {
 	
 	List<Event> getAllEvents();
 	
-	Event getEventById(Integer id);
+	Event getEventById(Integer id) throws Exception;
 	
 	void deleteEventById(Integer id);
 	
 	Event updateEvent(Event event);
 	
 	List<Event> getEventsByCategory(String category);
+	
+	List<Event> getEventsByCategoryNLocation(String category, String location);
 }
