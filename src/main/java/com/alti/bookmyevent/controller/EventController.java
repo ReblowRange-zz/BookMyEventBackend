@@ -51,12 +51,7 @@ public class EventController {
 		return new ResponseEntity<Event>(eventService.getEventById(id), HttpStatus.OK);
 	}
 
-	@GetMapping("/category/{category}")
-	public ResponseEntity<List<Event>> getEventsByCategory(@PathVariable @NotBlank String category) {
-		return new ResponseEntity<List<Event>>(eventService.getEventsByCategory(category), HttpStatus.OK);
-	}
-
-	@GetMapping("/cate_n_loc")
+	@GetMapping()
 	public ResponseEntity<List<Event>> getEventsByCategoryNLocation(@RequestParam @NotBlank String category, 
 			@RequestParam @NotBlank String location) {
 		return new ResponseEntity<List<Event>>(eventService.getEventsByCategoryNLocation(category, location), HttpStatus.OK);
